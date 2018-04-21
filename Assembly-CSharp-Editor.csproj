@@ -54,6 +54,7 @@
      <Compile Include="Assets\GKStudio\Editor\Scripts\AssetFileReportMaker.cs" />
      <Compile Include="Assets\GKStudio\Editor\Scripts\BaseAssetComparer.cs" />
      <Compile Include="Assets\GKStudio\Editor\Scripts\Constants.cs" />
+     <Compile Include="Assets\GKStudio\Editor\Scripts\FileMaker.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

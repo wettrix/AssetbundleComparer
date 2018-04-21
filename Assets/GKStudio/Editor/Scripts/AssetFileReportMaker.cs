@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using System;
+using System.IO;
 
 namespace GKStudio
 {
@@ -24,6 +25,16 @@ namespace GKStudio
 			var windowClass = (AssetFileReportMaker)EditorWindow.GetWindow(typeof(AssetFileReportMaker));
 			windowClass.Show();
 		}
+
+		/// <summary>
+		/// When the window opens for the first time
+		/// </summary>
+		protected override void OnEnable()
+		{
+			base.OnEnable();
+			// Building
+			m_startBuildButtonDelegate = startBuild;
+		}
 		#endregion
 
 		#region Builder
@@ -31,15 +42,28 @@ namespace GKStudio
 		/// Check if all build options are checked
 		/// </summary>
 		/// <returns>If we completed all checks or not</returns>
-		override protected bool canWeBuildCheck()
+		protected override bool canWeBuildCheck()
 		{
 			return !string.IsNullOrEmpty(m_firstFolderLocation) && !string.IsNullOrEmpty(m_saveReportFolderLocation);
 		}
 
-		private static void startBuild()
+		/// <summary>
+		/// Starts the build.
+		/// </summary>
+		private static void startBuild(string inS, string inD)
 		{
+			// Get List of Files
+			var firstLocationDict = getAllAssetBundlesFromLocationToDict(m_firstFolderLocation);
 
+			foreach(var test in firstLocationDict)
+			{
+				Debug.LogFormat("Key:{0}, Value:{1}", test.Key, test.Value);
+			}
+			// Save to file
+			// @TODO
 		}
+
+
 		#endregion
 
 		#region UI
@@ -50,7 +74,7 @@ namespace GKStudio
 		{
 			guiFolderButtonArea(Constants.Text.FirstButton, m_firstFolderLocation, m_firstFolderButtonDelegate);
 			guiFolderButtonArea(Constants.Text.SaveReportButton, m_saveReportFolderLocation, m_saveReportFolderButtonDelegate);
-			guiStartBuildButton();
+			guiStartBuildButton(m_startBuildButtonDelegate);
 		}
 		#endregion
 

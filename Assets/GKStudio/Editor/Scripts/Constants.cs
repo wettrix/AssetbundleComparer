@@ -76,5 +76,19 @@
 			public const string SaveReportFolderPathKey = prefix + "saveReportFolder";
 		}
 		#endregion
+
+		#region Strings
+		/** Meta Suffix */
+		public const string MetaSuffix = ".meta";
+		/** Manifest Suffix */
+		public const string ManifestSuffix = ".manifest";
+		/** CRC Prefix*/
+		public const string CrcPrefix = "CRC: ";
+		#endregion
+
+		#region Other Values
+		/** Number of Decimals in MB suffix */
+		public const int DecimalAmountOfMb = 2;
+		#endregion
 	}
 }
