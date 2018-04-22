@@ -8,21 +8,29 @@ using System.IO;
 namespace GKStudio
 {
 	/**
-	 * AssetFileReportMaker.cs
+	 * AssetCompareReportMaker.cs
 	 * 
 	 * ?
 	 * ------------------------------------
 	 * ?
 	 * 
-	 * 2018-04-21	GKStudio 	Gustav Knutsson
+	 * 2018-04-22	GKStudio 	Gustav Knutsson
 	 */
-	public class AssetFileReportMaker : BaseAssetComparer
+	public class AssetCompareReportMaker : BaseAssetComparer
 	{
+		#region Variables
+		// Second Folder
+		/** Second Folder Path */
+		protected static string m_secondFolderLocation = string.Empty;
+		/** Second Folder Button Press */
+		protected Action<string> m_secondFolderButtonDelegate;
+		#endregion
+
 		#region Initialize
-		[MenuItem(Constants.WindowPath+Constants.WindowFileReportMakerName)]
+		[MenuItem(Constants.WindowPath+Constants.WindowComparerRepportMaker)]
 		static void Init()
 		{
-			var windowClass = (AssetFileReportMaker)EditorWindow.GetWindow(typeof(AssetFileReportMaker));
+			var windowClass = (AssetCompareReportMaker)EditorWindow.GetWindow(typeof(AssetCompareReportMaker));
 			windowClass.Show();
 		}
 
@@ -34,6 +42,9 @@ namespace GKStudio
 			base.OnEnable();
 			// Building
 			m_startBuildButtonDelegate = startBuild;
+			// Second Folder
+			m_secondFolderButtonDelegate = onPressSelectSecondFolderLocation;
+			m_secondFolderLocation = EditorPrefs.GetString(Constants.Prefs.SecondFolderPathKey);
 		}
 		#endregion
 
@@ -44,7 +55,7 @@ namespace GKStudio
 		/// <returns>If we completed all checks or not</returns>
 		protected override bool canWeBuildCheck()
 		{
-			return !string.IsNullOrEmpty(m_firstFolderLocation) && !string.IsNullOrEmpty(m_saveReportFolderLocation);
+			return !string.IsNullOrEmpty(m_firstFolderLocation) && !string.IsNullOrEmpty(m_saveReportFolderLocation) && !string.IsNullOrEmpty(m_secondFolderLocation);
 		}
 
 		/// <summary>
@@ -52,6 +63,8 @@ namespace GKStudio
 		/// </summary>
 		private static void startBuild(string inS, string inD)
 		{
+			// @TODO
+			/*
 			// Get List of Files
 			var firstLocationDict = getAllAssetBundlesFromLocationToDict(m_firstFolderLocation);
 			// Save Toggle Data
@@ -63,6 +76,7 @@ namespace GKStudio
 			}
 			// Save to file
 			prepareWritingFile(firstLocationDict);
+			*/
 		}
 
 		/// <summary>
@@ -71,6 +85,8 @@ namespace GKStudio
 		/// <param name="inFilesDict">In files dict.</param>
 		private static void prepareWritingFile(Dictionary<string, FileMaker> inFilesDict)
 		{
+			// @TODO
+			/*
 			string text = string.Empty;
 			string fileFullPath = string.Format("{0}/{1}{2}", m_saveReportFolderLocation, getFileName(Constants.FileNameAssetReporter), Constants.FileNameSuffixType);
 
@@ -85,6 +101,7 @@ namespace GKStudio
 
 			// Write the File
 			writeFile(fileFullPath, text);
+			*/
 		}
 
 		/// <summary>
@@ -143,6 +160,7 @@ namespace GKStudio
 
 			guiTitleArea(Constants.Text.FolderTitle);
 			guiFolderButtonArea(Constants.Text.FirstButton, m_firstFolderLocation, m_firstFolderButtonDelegate);
+			guiFolderButtonArea(Constants.Text.SecondButton, m_secondFolderLocation, m_secondFolderButtonDelegate);
 			guiFolderButtonArea(Constants.Text.SaveReportButton, m_saveReportFolderLocation, m_saveReportFolderButtonDelegate);
 
 			guiTitleArea(Constants.Text.BuildTitle);
@@ -150,11 +168,23 @@ namespace GKStudio
 		}
 		#endregion
 
+		#region ButtonPresses
+		/// <summary>
+		/// When Pressing the Open folder in guiFolderButtonArea function we recieve a callback with path data
+		/// </summary>
+		/// <param name="inResult">Path result</param>
+		private void onPressSelectSecondFolderLocation(string inResult)
+		{
+			m_secondFolderLocation = inResult;
+			EditorPrefs.SetString(Constants.Prefs.SecondFolderPathKey, m_secondFolderLocation);
+		}
+		#endregion
+
 		#region Jenkins Build
 		private static void StartBuildJenkins()
 		{
-			
-		//	startBuild(string.Empty, string.Empty);
+
+			//	startBuild(string.Empty, string.Empty);
 		}
 		#endregion
 	}

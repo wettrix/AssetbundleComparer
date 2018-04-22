@@ -30,7 +30,7 @@ namespace GKStudio
 		/// </summary>
 		public FileMaker(int inIndex, FileInfo inFile)
 		{
-			m_index = inIndex;
+			m_index = inIndex + 1;
 			m_fileName = inFile.Name;
 			m_fileSize = calculateMegaByteSize(inFile.Length);
 			m_crc = 0;
@@ -92,6 +92,15 @@ namespace GKStudio
 		public override string ToString()
 		{
 			return string.Format("{0},{1},{2},{3}", m_index, m_fileName, System.Math.Round(m_fileSize, Constants.DecimalAmountOfMb), m_crc);
+		}
+
+		/// <summary>
+		/// Gets the title row that we set as a base from ToString
+		/// </summary>
+		/// <returns>The title row.</returns>
+		public static string GetTitleRow()
+		{
+			return string.Format("{0},{1},{2},{3}", Constants.Text.TopRowIndex, Constants.Text.TopRowAssetbundleName, Constants.Text.TopRowMegaByte, Constants.Text.TopRowCrc);
 		}
 	}
 }

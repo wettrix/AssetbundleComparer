@@ -1,7 +1,10 @@
 ﻿<Properties StartupItem="Assembly-CSharp-Editor.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/GKStudio/Editor/Scripts/Constants.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/GKStudio/Editor/Scripts/FileMaker.cs">
     <Files>
+      <File FileName="Assets/GKStudio/Editor/Scripts/BaseAssetComparer.cs" Line="1" Column="1" />
+      <File FileName="Assets/GKStudio/Editor/Scripts/AssetFileReportMaker.cs" Line="1" Column="1" />
+      <File FileName="Assets/GKStudio/Editor/Scripts/FileMaker.cs" Line="24" Column="28" />
       <File FileName="Assets/GKStudio/Editor/Scripts/Constants.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
